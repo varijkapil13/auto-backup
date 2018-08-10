@@ -3,7 +3,6 @@ import os
 import subprocess
 import configparser
 import schedule
-from daemon import runner
 
 from models.Server import Server
 from helpers.FileNameCreator import FileNameCreator
@@ -19,7 +18,7 @@ def start_backup():
 
     :return:
     """
-    connection_strings = self._read_db_configuration()
+    connection_strings = _read_db_configuration()
 
     print("Found the following connection strings\n -> %s" % connection_strings)
 
@@ -74,6 +73,6 @@ def _create_backup(server):
 
 
 if __name__ == '__main__':
-    schedule.every(3).minutes.do(start_backup)
+    schedule.every(1).minutes.do(start_backup)
     while True:
         schedule.run_pending()
