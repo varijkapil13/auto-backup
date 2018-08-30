@@ -73,6 +73,6 @@ def _create_backup(server):
 
 
 if __name__ == '__main__':
-    schedule.every(1).minutes.do(start_backup)
+    schedule.every(1).day.at("00:00").do(start_backup)
     while True:
         schedule.run_pending()
