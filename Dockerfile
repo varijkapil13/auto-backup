@@ -2,9 +2,10 @@ FROM python:3.6
 COPY . /app
 WORKDIR /app
 SHELL ["/bin/bash", "-c"]
-RUN deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN apt-get update && apt-get install -y postgresql-client-10
+#RUN deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main
+#RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN apt-get update && apt-get install -y postgresql-client
+RUN ln -s /usr/lib/postgresql/10/bin/pg_dump /usr/bin/pg_dump --force
 RUN pip install virtualenv
 RUN virtualenv venv
 RUN source venv/bin/activate
