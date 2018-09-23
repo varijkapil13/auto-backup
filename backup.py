@@ -20,8 +20,6 @@ def start_backup():
     """
     connection_strings = _read_db_configuration()
 
-    print("Found the following connection strings\n -> %s" % connection_strings)
-
     for string in connection_strings:
         _create_backup(string)
 
@@ -41,6 +39,7 @@ def _read_db_configuration():
         url = database_config.get('url')
         port = database_config.getint('port')
         db_name = database_config.get('database')
+        db_type = database_config.get('type')
 
         if username is None or password is None or url is None or port is None or db_name is None:
 
@@ -51,7 +50,9 @@ def _read_db_configuration():
                 "xe\n")
             log.error("Skipping backup for this database")
         else:
-            connection_strings.append(Server(url, port, db_name, username, password, section))
+            server = Server(url, port, db_name, username, password, section, db_type)
+            log.info("Read new configuration.... {0}", server.connection_string)
+            connection_strings.append(server)
 
     return connection_strings
 
