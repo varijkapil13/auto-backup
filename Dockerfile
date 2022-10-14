@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:22.10
 COPY . /app
 WORKDIR /app
 SHELL ["/bin/bash", "-c"]
